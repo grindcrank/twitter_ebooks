@@ -4,7 +4,7 @@ require File.expand_path('../lib/twitter_ebooks/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.required_ruby_version = '~> 2.1'
 
-  gem.authors       = ["Jaiden Mispy"]
+  gem.authors       = ["Jaiden Mispy", "Magnus Niemann"]
   gem.email         = ["^_^@mispy.me"]
   gem.description   = %q{Markov chains for all your friends~}
   gem.summary       = %q{Markov chains for all your friends~}

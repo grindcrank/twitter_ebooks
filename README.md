@@ -1,14 +1,20 @@
 
-## Unmaintained
+## Fork
 
-The Twitter social environment is a bit different than it was when I originally wrote this, and Twitter has [deprecated the streaming API](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/user-stream) on which the ebooks bots depend. I've moved on to other projects, but feel free to fork!
+No one I know had fun in changing to the shiny new Twitter Account Actitvity API, since this means to run your own web server with all consequences. So I started hacking into the code to change the streaming API to polling the home and mentions timeline.
 
 # twitter\_ebooks
 
 [![Gem Version](https://badge.fury.io/rb/twitter_ebooks.svg)](http://badge.fury.io/rb/twitter_ebooks)
-[![Build Status](https://travis-ci.org/mispy/twitter_ebooks.svg)](https://travis-ci.org/mispy/twitter_ebooks)
+[![Build Status](https://travis-ci.org/grindcrank/twitter_ebooks.svg)](https://travis-ci.org/grindcrank/twitter_ebooks)
 
 A framework for building interactive twitterbots which respond to mentions/DMs. See [ebooks_example](https://github.com/mispy/ebooks_example) for a fully-fledged bot definition.
+
+## New in 3.2
+
+(There was no changelog for 3.1, but the version nevertheless existed.)
+
+- Uses home and mentions polling instead of streams.
 
 ## New in 3.0
 

@@ -353,12 +353,52 @@ module Ebooks
       fire(:startup)
     end
 
-    # Start running user event stream
+    # Start polling timelines
     def start
-      log "starting tweet stream"
+      log "starting Twitter timeline polling"
 
-      twitter.home_timeline.each do |ev|
-        receive_event ev
+      latest_tweet = 0
+      latest_mention = 0
+      options_home = {count: 800}
+      options_mention = {count: 200}
+      persistence_file = "#{@username}.json"
+      # Read last polled tweets from a persisted file, if exists
+      if File.exist? persistence_file
+        json = JSON.parse(open(persistence_file, 'r').read)
+        latest_tweet = json['latest_tweet']
+        latest_mention = json['latest_mention']
+        options_home[:since_id] = latest_tweet
+        options_mention[:since_id] = latest_mention
+        log "starting home timeline after tweet ##{latest_tweet}"
+        log "starting mentions after tweet ##{latest_mention}"
+      end
+
+      # Poll home timeline every 70s (rate limit is 15 GETs/15min)
+      scheduler.every '70s' do
+        tweets = twitter.home_timeline(options_home)
+        log "#{tweets.size} new tweets in timeline"
+        tweets.each do |ev|
+          latest_tweet = ev.id if ev.id > latest_tweet
+          receive_event ev
+          options_home[:since_id] = latest_tweet
+        end
+        file = open(persistence_file, 'w')
+        file.puts({latest_tweet:  latest_tweet, latest_mention: latest_mention}.to_json)
+        file.close
+      end
+
+      # Poll mentions timeline every 20s (rate limit is 75 GETs/15min)
+      scheduler.every '20s' do
+        mentions = twitter.mentions_timeline(options_mention)
+        log "#{mentions.size} new mentions in timeline"
+        mentions.each do |ev|
+          latest_mention = ev.id if ev.id > latest_mention
+          receive_event ev
+          options_mention[:since_id] = latest_mention
+        end
+        file = open(persistence_file, 'w')
+        file.puts({latest_tweet:  latest_tweet, latest_mention: latest_mention}.to_json)
+        file.close
       end
     end
 
