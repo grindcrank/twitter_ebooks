@@ -3,9 +3,9 @@
 
 No one I know had fun in changing to the shiny new Twitter Account Actitvity API, since this means to run your own web server with all consequences. So I started hacking into the code to change the streaming API to polling the home and mentions timeline.
 
-# twitter\_ebooks
+# twitter\_ebooks\_poll
 
-[![Gem Version](https://badge.fury.io/rb/twitter_ebooks.svg)](http://badge.fury.io/rb/twitter_ebooks)
+[![Gem Version](https://badge.fury.io/rb/twitter_ebooks_poll.svg)](http://badge.fury.io/rb/twitter_ebooks_poll)
 [![Build Status](https://travis-ci.org/grindcrank/twitter_ebooks.svg)](https://travis-ci.org/grindcrank/twitter_ebooks)
 
 A framework for building interactive twitterbots which respond to mentions/DMs. See [ebooks_example](https://github.com/mispy/ebooks_example) for a fully-fledged bot definition.
