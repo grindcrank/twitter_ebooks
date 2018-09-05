@@ -1,7 +1,7 @@
 
-## Unmaintained
+## Fork
 
-The Twitter social environment is a bit different than it was when I originally wrote this, and Twitter has [deprecated the streaming API](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/user-stream) on which the ebooks bots depend. I've moved on to other projects, but feel free to fork!
+No one I know had fun in changing to the shiny new Twitter Account Actitvity API, since this means to run your own web server with all consequences. So I started hacking into the code to change the streaming API to polling the home and mentions timeline.
 
 # twitter\_ebooks
 
