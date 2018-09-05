@@ -12,7 +12,8 @@ module Ebooks::Util
 end
 
 module Ebooks::CLI
-  APP_PATH = Dir.pwd # XXX do some recursive thing instead
+  $LOAD_PATH.unshift(Dir.pwd)
+  puts $LOAD_PATH
   HELP = OpenStruct.new
 
   HELP.default = <<STR
@@ -361,14 +362,8 @@ STR
     threads = []
     bots.each do |bot|
       threads << Thread.new do
+        bot.start
         loop do
-          begin
-            bot.start
-          rescue Exception => e
-            bot.log e.inspect
-            puts e.backtrace.map { |s| "\t"+s }.join("\n")
-          end
-          bot.log "Sleeping before reconnect"
           sleep 60
         end
       end

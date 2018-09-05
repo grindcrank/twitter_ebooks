@@ -357,7 +357,7 @@ module Ebooks
     def start
       log "starting tweet stream"
 
-      stream.user do |ev|
+      twitter.home_timeline.each do |ev|
         receive_event ev
       end
     end
