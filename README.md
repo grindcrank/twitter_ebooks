@@ -10,6 +10,12 @@ No one I know had fun in changing to the shiny new Twitter Account Actitvity API
 
 A framework for building interactive twitterbots which respond to mentions/DMs. See [ebooks_example](https://github.com/mispy/ebooks_example) for a fully-fledged bot definition.
 
+## New in 3.2
+
+(There was no changelog for 3.1, but the version nevertheless existed.)
+
+- Uses home and mentions polling instead of streams.
+
 ## New in 3.0
 
 - About 80% less memory and storage use for models
