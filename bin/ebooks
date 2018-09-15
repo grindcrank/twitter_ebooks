@@ -13,7 +13,7 @@ end
 
 module Ebooks::CLI
   $LOAD_PATH.unshift(Dir.pwd)
-  puts $LOAD_PATH
+  APP_PATH = Dir.pwd
   HELP = OpenStruct.new
 
   HELP.default = <<STR
