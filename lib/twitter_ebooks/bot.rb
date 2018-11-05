@@ -355,15 +355,17 @@ module Ebooks
 
     # Start polling timelines
     def start
-      log "starting Twitter timeline polling"
+      log 'starting Twitter timeline polling 3.2.2.1'
 
       latest_tweet = 0
       latest_mention = 0
-      options_home = {count: 800}
       options_mention = {count: 200}
+      options_home = {count: 800}
       persistence_file = "#{@username}.json"
       # Read last polled tweets from a persisted file, if exists
       if File.exist? persistence_file
+        options_mention = {count: 200}
+        options_home = {count: 800}
         json = JSON.parse(open(persistence_file, 'r').read)
         latest_tweet = json['latest_tweet']
         latest_mention = json['latest_mention']
@@ -371,7 +373,26 @@ module Ebooks
         options_mention[:since_id] = latest_mention
         log "starting home timeline after tweet ##{latest_tweet}"
         log "starting mentions after tweet ##{latest_mention}"
+      else
+        # Fresh start - fetch only newest tweet & mention id
+        log 'starting without persisted ids - reading newest tweet/mention ...'
+        tweets = twitter.home_timeline(options_home)
+        tweets.each do |ev|
+          latest_tweet = ev.id if ev.id > latest_tweet
+          options_home[:since_id] = latest_tweet
+        end
+        mentions = twitter.mentions_timeline(options_mention)
+        mentions.each do |ev|
+          latest_mention = ev.id if ev.id > latest_mention
+          options_mention[:since_id] = latest_mention
+        end
+        file = open(persistence_file, 'w')
+        file.puts({latest_tweet:  latest_tweet, latest_mention: latest_mention}.to_json)
+        file.close
+        log '... done'
       end
+
+      log 'starting timeline polling schedulers'      
 
       # Poll home timeline every 70s (rate limit is 15 GETs/15min)
       scheduler.every '70s' do
