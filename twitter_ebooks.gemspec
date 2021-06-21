@@ -2,7 +2,7 @@
 require File.expand_path('../lib/twitter_ebooks/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.required_ruby_version = '~> 2.1'
+  gem.required_ruby_version = '>= 2.1'
 
   gem.authors       = ["Magnus Niemann"]
   gem.email         = ["ebooks@zwergenmaschine.de"]
