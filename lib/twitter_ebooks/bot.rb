@@ -355,7 +355,7 @@ module Ebooks
 
     # Start polling timelines
     def start
-      log 'starting Twitter timeline polling 3.2.2.1'
+      log 'starting Twitter timeline polling'
 
       latest_tweet = 0
       latest_mention = 0
